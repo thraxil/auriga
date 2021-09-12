@@ -1,5 +1,6 @@
 defmodule AurigaWeb.RoomLive do
   use AurigaWeb, :live_view
+  use Timex
   require Logger
 
   alias Auriga.Accounts
@@ -31,7 +32,7 @@ defmodule AurigaWeb.RoomLive do
 
   @impl true
   def handle_event("submit_message", %{"chat" => %{"message" => message}}, socket) do
-    message = %{uuid: UUID.uuid4(), content: message, email: socket.assigns.current_user.email}
+    message = %{uuid: UUID.uuid4(), content: message, email: socket.assigns.current_user.email, timestamp: Timex.now()}
     AurigaWeb.Endpoint.broadcast(socket.assigns.topic, "new-message", message)
     {:noreply, assign(socket, message: "")}
   end
@@ -48,26 +49,26 @@ defmodule AurigaWeb.RoomLive do
   def handle_info(%{event: "presence_diff", payload: %{joins: joins, leaves: leaves}}, socket) do
     join_messages = joins
     |> Map.keys()
-    |> Enum.map(fn email -> %{type: :system, uuid: UUID.uuid4(), content: "#{email} joined"} end)
+    |> Enum.map(fn email -> %{type: :system, uuid: UUID.uuid4(), content: "#{email} joined", timestamp: Timex.now()} end)
 
     leave_messages = leaves
     |> Map.keys()
-    |> Enum.map(fn email -> %{type: :system, uuid: UUID.uuid4(), content: "#{email} left"} end)
+    |> Enum.map(fn email -> %{type: :system, uuid: UUID.uuid4(), content: "#{email} left", timestamp: Timex.now()} end)
 
     user_list = AurigaWeb.Presence.list(socket.assigns.topic) |> Map.keys()
     {:noreply, assign(socket, messages: socket.assigns.messages ++ join_messages ++ leave_messages,
       user_list: user_list)}
   end
 
-  def display_message(%{type: :system, uuid: uuid, content: content}) do
+  def display_message(%{type: :system, uuid: uuid, content: content, timestamp: timestamp}) do
     ~E"""
-    <p class="system-message"><%= content %><p>
+    <p class="system-message"><i><%= Timex.format!(timestamp, "{YYYY}-{0M}-{0D} {h24}:{m}") %></i> <%= content %><p>
     """
   end
 
-  def display_message(%{uuid: uuid, email: email, content: content}) do
+  def display_message(%{uuid: uuid, email: email, content: content, timestamp: timestamp}) do
     ~E"""
-    <p><b><%= email %>:</b> <%= content %></p>
+    <p><i><%= Timex.format!(timestamp, "{h24}:{m}") %></i> <b><%= email %>:</b> <%= content %></p>
     """
   end
 end
