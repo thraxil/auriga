@@ -14,9 +14,10 @@ defmodule Auriga.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Auriga.PubSub},
       # Start the Endpoint (http/https)
-      AurigaWeb.Endpoint
+      AurigaWeb.Endpoint,
       # Start a worker by calling: Auriga.Worker.start_link(arg)
       # {Auriga.Worker, arg}
+      AurigaWeb.Presence
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

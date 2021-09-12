@@ -50,7 +50,9 @@ defmodule Auriga.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:phx_gen_auth, "~> 0.7", only: [:dev], runtime: false},
       {:earmark, "~> 1.4"},
-      {:html_sanitize_ex, "~> 1.3"}
+      {:html_sanitize_ex, "~> 1.3"},
+      {:mnemonic_slugs, "~> 0.0.3"},
+      {:uuid, "~> 1.1.8"}
     ]
   end
 

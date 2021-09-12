@@ -1,0 +1,25 @@
+<h3>Room: <%= @room_id %></h3>
+<p>You are chatting as <strong><%= @username %></strong></p>
+
+
+<div id="user-list">
+  <h3>users online</h3>
+    <%= for user <- @user_list do %>
+        <p><%= user %></p>
+        <% end %>
+  </div>
+
+<div id="chat-container">
+  <div id="chat-messages">
+    <%= for message <- @messages do %>
+        <%= display_message(message) %>
+    <% end %>
+  </div>
+</div>
+
+
+<%= f = form_for :chat, "#", id: "chat-form", phx_submit:
+  :submit_message, phx_change: :form_update %>
+  <%= text_input f, :message, placeholder: "enter a message", value: @message %>
+</form>
+
