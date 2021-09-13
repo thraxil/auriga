@@ -43,7 +43,7 @@ defmodule AurigaWeb.RoomLive do
 
   @impl true
   def handle_info(%{event: "new-message", payload: message}, socket) do
-    {:noreply, assign(socket, messages: socket.assigns.messages ++ [message])}
+    {:noreply, assign(socket, messages: Enum.take(socket.assigns.messages ++ [message], -10))}
   end
 
   def handle_info(%{event: "presence_diff", payload: %{joins: joins, leaves: leaves}}, socket) do
@@ -56,7 +56,7 @@ defmodule AurigaWeb.RoomLive do
     |> Enum.map(fn email -> %{type: :system, uuid: UUID.uuid4(), content: "#{email} left", timestamp: Timex.now()} end)
 
     user_list = AurigaWeb.Presence.list(socket.assigns.topic) |> Map.keys()
-    {:noreply, assign(socket, messages: socket.assigns.messages ++ join_messages ++ leave_messages,
+    {:noreply, assign(socket, messages: Enum.take(socket.assigns.messages ++ join_messages ++ leave_messages, -10),
       user_list: user_list)}
   end
 
