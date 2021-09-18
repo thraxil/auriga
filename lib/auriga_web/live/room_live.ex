@@ -5,6 +5,8 @@ defmodule AurigaWeb.RoomLive do
 
   alias Auriga.Accounts
   alias Auriga.Accounts.User
+  alias Auriga.Room
+  alias Auriga.Repo
 
   defp find_current_user(session) do
     with user_token when not is_nil(user_token) <- session["user_token"],
@@ -16,6 +18,7 @@ defmodule AurigaWeb.RoomLive do
   def mount(%{"id" => room_id}, session, socket) do
     topic = "room:" <> room_id
     current_user = find_current_user(session)
+    room = Repo.get_by(Room, slug: room_id)
 
     if connected?(socket) do
       AurigaWeb.Endpoint.subscribe(topic)
@@ -24,6 +27,7 @@ defmodule AurigaWeb.RoomLive do
     {:ok,
      assign(socket, room_id: room_id,
        topic: topic,
+       room: room,
        message: "",
        current_user: current_user,
        user_list: [],
