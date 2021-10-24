@@ -9,7 +9,7 @@ defmodule Auriga.Accounts.User do
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
     has_many :rooms, Auriga.Room
-    has_many :messages, Auriga.Messages
+    has_many :messages, Auriga.Message
     
     timestamps()
   end
