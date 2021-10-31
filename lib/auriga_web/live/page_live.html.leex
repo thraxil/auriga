@@ -2,3 +2,24 @@
 <section>
 <button phx-click="random-room" title="create random room">create random room</button>
 </section>
+
+<%= if Enum.empty?(@owned_rooms) do %>
+<% else %>
+<h3>Rooms you created</h3>
+<ul>
+<%= for room <- @owned_rooms do %>
+    <li><a href="/chat/<%= room.slug %>/"><%= room.name %></a></li>
+<% end %>
+</ul>    
+<% end %>
+
+
+<%= if Enum.empty?(@active_rooms) do %>
+<% else %>
+<h3>Rooms you have posted in</h3>
+<ul>
+<%= for room <- @active_rooms do %>
+    <li><a href="/chat/<%= room.slug %>/"><%= room.name %></a></li>
+<% end %>
+</ul>    
+<% end %>

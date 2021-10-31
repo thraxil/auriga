@@ -1,3 +1,5 @@
+import Ecto.Query
+
 defmodule AurigaWeb.PageLive do
   use AurigaWeb, :live_view
   alias Auriga.Room
@@ -16,7 +18,18 @@ defmodule AurigaWeb.PageLive do
   def mount(_params, session, socket) do    
     current_user = find_current_user(session)    
     Logger.info(current_user.email)
-    {:ok, assign(socket, current_user: current_user)}
+
+    owned_rooms = Repo.all(
+      from r in Ecto.assoc(current_user, :rooms),
+      order_by: [asc: :name])
+
+    # i know this is a really inefficient way of doing this query
+    # improve it once I understand ecto better.
+    active_rooms = Repo.all(from m in Ecto.assoc(current_user, :messages), order_by: [asc: :type], distinct: m.room_id)
+    |> Enum.map(fn msg -> msg.room_id end)
+    |> Enum.map(fn id -> Repo.get(Room, id) end)
+    
+    {:ok, assign(socket, current_user: current_user, owned_rooms: owned_rooms, active_rooms: active_rooms)}
   end
 
   @impl true
