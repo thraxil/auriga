@@ -3,6 +3,7 @@
 <button phx-click="random-room" title="create random room">create random room</button>
 </section>
 
+<section>
 <%= if Enum.empty?(@owned_rooms) do %>
 <% else %>
 <h3>Rooms you created</h3>
@@ -12,8 +13,9 @@
 <% end %>
 </ul>    
 <% end %>
+</section>
 
-
+<section>
 <%= if Enum.empty?(@active_rooms) do %>
 <% else %>
 <h3>Rooms you have posted in</h3>
@@ -23,3 +25,4 @@
 <% end %>
 </ul>    
 <% end %>
+</section>
