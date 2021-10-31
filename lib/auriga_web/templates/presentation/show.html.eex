@@ -1,0 +1,12 @@
+<h1>Presentation: <%= @presentation.title %></h1>
+
+<table>
+    <tr>
+        <th>Author:</th>
+        <td><%= @presentation.user.email %></td>
+    </tr>
+    <tr>
+        <th>Created</th>
+        <td><%= @presentation.inserted_at %></td>
+    </tr>
+</table>

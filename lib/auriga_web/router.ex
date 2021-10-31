@@ -67,6 +67,13 @@ defmodule AurigaWeb.Router do
 
     live "/", PageLive, :index
     live "/chat/:id", RoomLive, :index
+
+    # presentations
+    get "/presentations/", PresentationController, :index
+    get "/presentations/new/", PresentationController, :new
+    get "/presentations/:id/", PresentationController, :show
+    post "/presentations/:id/delete/", PresentationController, :delete
+    post "/presentations/", PresentationController, :create
   end
 
   scope "/", AurigaWeb do

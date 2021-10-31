@@ -10,7 +10,7 @@ defmodule Auriga.Presentations.Presentation do
   end
 
   @doc false
-  def changeset(presentation, attrs) do
+  def changeset(presentation, attrs \\ %{}) do
     presentation
     |> cast(attrs, [:title])
     |> validate_required([:title])

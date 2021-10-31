@@ -1,0 +1,11 @@
+<h2>Your Presentations</h2>
+<%= link "New Presentation", to: Routes.presentation_path(@conn, :new) %>
+
+<ul>
+    <%= for presentation <- @presentations do %>
+        <li>
+            <%= presentation.inserted_at %>
+            <%= link presentation.title, to: Routes.presentation_path(@conn, :show, presentation.id) %>
+        </li>
+    <% end %>
+</ul>

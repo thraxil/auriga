@@ -10,6 +10,7 @@ defmodule Auriga.Accounts.User do
     field :confirmed_at, :naive_datetime
     has_many :rooms, Auriga.Room
     has_many :messages, Auriga.Message
+    has_many :presentations, Auriga.Presentations.Presentation
     
     timestamps()
   end
