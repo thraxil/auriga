@@ -41,6 +41,11 @@ defmodule AurigaWeb.PresentationController do
     end
   end
 
-  def delete(conn, _params) do
+  def delete(conn, %{"id" => id}) do
+    presentation = Repo.get(Presentation, id)
+    {:ok, _} = Repo.delete presentation
+    conn
+    |> put_flash(:info, "presentation deleted")
+    |> redirect(to: Routes.presentation_path(conn, :index))
   end
 end

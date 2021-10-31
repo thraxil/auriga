@@ -10,3 +10,8 @@
         <td><%= @presentation.inserted_at %></td>
     </tr>
 </table>
+
+
+<%= form_for @conn, Routes.presentation_path(@conn, :delete, @presentation), fn f -> %>
+<%= submit "Delete Presentation", class: "btn btn-danger" %>
+<% end %>
