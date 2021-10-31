@@ -29,7 +29,7 @@ defmodule AurigaWeb.RoomLive do
     topic = "room:" <> room_id
     current_user = find_current_user(session)
     room = Repo.get_by(Room, slug: room_id)
-    query = from Message,
+    query = from m in Ecto.assoc(room, :messages),
       order_by: [desc: :inserted_at],
       preload: :user,
       limit: 10
