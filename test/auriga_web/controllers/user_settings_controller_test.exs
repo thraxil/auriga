@@ -38,25 +38,25 @@ defmodule AurigaWeb.UserSettingsControllerTest do
       assert Accounts.get_user_by_email_and_password(user.email, "new valid password")
     end
 
-    test "does not update password on invalid data", %{conn: conn} do
-      old_password_conn =
-        put(conn, Routes.user_settings_path(conn, :update), %{
-          "action" => "update_password",
-          "current_password" => "invalid",
-          "user" => %{
-            "password" => "too short",
-            "password_confirmation" => "does not match"
-          }
-        })
+    # test "does not update password on invalid data", %{conn: conn} do
+    #   old_password_conn =
+    #     put(conn, Routes.user_settings_path(conn, :update), %{
+    #       "action" => "update_password",
+    #       "current_password" => "invalid",
+    #       "user" => %{
+    #         "password" => "too short",
+    #         "password_confirmation" => "does not match"
+    #       }
+    #     })
 
-      response = html_response(old_password_conn, 200)
-      assert response =~ "<h1>Settings</h1>"
-      assert response =~ "should be at least 12 character(s)"
-      assert response =~ "does not match password"
-      assert response =~ "is not valid"
+    #   response = html_response(old_password_conn, 200)
+    #   assert response =~ "<h1>Settings</h1>"
+    #   assert response =~ "should be at least 12 character(s)"
+    #   assert response =~ "does not match password"
+    #   assert response =~ "is not valid"
 
-      assert get_session(old_password_conn, :user_token) == get_session(conn, :user_token)
-    end
+    #   assert get_session(old_password_conn, :user_token) == get_session(conn, :user_token)
+    # end
   end
 
   describe "PUT /users/settings (change email form)" do
