@@ -5,6 +5,7 @@ defmodule Auriga.Presentations.Presentation do
   schema "presentations" do
     field :title, :string
     belongs_to :user, Auriga.Accounts.User
+    has_many :slides, Auriga.Presentations.Slide
 
     timestamps()
   end
