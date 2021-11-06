@@ -17,5 +17,52 @@
 
 
 <%= form_for @conn, Routes.presentation_path(@conn, :delete, @presentation), fn f -> %>
-<%= submit "Delete Presentation", class: "btn btn-danger" %>
+    <%= submit "Delete Presentation", class: "btn btn-danger" %>
 <% end %>
+
+
+<table>
+    <%= for slide <- @slides do %>
+        <tr>
+            <th><%= slide.index %></th><th><%= slide.title %></th>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <%= raw slide.content_html %>
+            </td>
+        </tr>
+<% end %>
+</table>
+
+<h2>Add Slide</h2>
+<%= if @slide_changeset.action do %>
+    <div class="alert alert-danger">
+        <p>oops, something went wrong</p>
+    </div>
+<% end %>
+
+
+<%= form_for @slide_changeset, Routes.presentation_path(@conn, :add_slide, @presentation.id), fn f -> %>
+    <div class="form-group">
+        <%= text_input f, :index, placeholder: "0", class: "form-control" %>
+        <%= error_tag f, :index %>
+    </div>
+
+    <div class="form-group">
+        <%= text_input f, :title, placeholder: "title", class: "form-control" %>
+        <%= error_tag f, :title %>
+    </div>
+
+    <div class="form-group">
+        <%= textarea f, :content_md, placeholder: "content", class: "form-control" %>
+        <%= error_tag f, :content_md %>
+    </div>
+
+    <div class="form-group">
+        <%= textarea f, :notes_md, placeholder: "notes", class: "form-control" %>
+        <%= error_tag f, :notes_md %>
+    </div>
+
+    <%= submit "Add Slide", class: "btn btn-primary" %>
+<% end %>
+
