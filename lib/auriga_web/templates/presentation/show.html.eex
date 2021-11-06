@@ -21,18 +21,22 @@
 <% end %>
 
 
-<table>
-    <%= for slide <- @slides do %>
-        <tr>
-            <th><%= slide.index %></th><th><%= slide.title %></th>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <%= raw slide.content_html %>
-            </td>
-        </tr>
+<%= if Enum.empty?(@slides) do %>
+<% else %>
+    <h2>Slides</h2>
+    <table>
+        <%= for slide <- @slides do %>
+            <tr>
+                <th><%= slide.index %></th><th><%= slide.title %></th>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <%= raw slide.content_html %>
+                </td>
+            </tr>
 <% end %>
 </table>
+<% end %>
 
 <h2>Add Slide</h2>
 <%= if @slide_changeset.action do %>
