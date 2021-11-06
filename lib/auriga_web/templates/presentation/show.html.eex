@@ -9,6 +9,10 @@
         <th>Created</th>
         <td><%= @presentation.inserted_at %></td>
     </tr>
+    <tr>
+        <th>Updated</th>
+        <td><%= @presentation.updated_at %></td>
+    </tr>
 </table>
 
 
