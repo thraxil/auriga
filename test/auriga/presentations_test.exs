@@ -7,7 +7,7 @@ defmodule Auriga.PresentationsTest do
     alias Auriga.Presentations.Presentation
 
     @valid_attrs %{title: "some title"}
-    @update_attrs %{title: "some updated title"}
+    # @update_attrs %{title: "some updated title"}
     @invalid_attrs %{title: nil}
 
     def presentation_fixture(attrs \\ %{}) do
