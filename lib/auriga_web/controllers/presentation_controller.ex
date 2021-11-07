@@ -41,6 +41,17 @@ defmodule AurigaWeb.PresentationController do
     end
   end
 
+  def delete_slide(conn, %{"id" => presentation_id, "slide_id" => slide_id}) do
+    presentation = Auriga.Presentations.get_presentation!(presentation_id)
+    # TODO: check that slide is attached to presentation
+    slide = Auriga.Presentations.get_slide!(slide_id)
+    # TODO: update indexes
+    {:ok, _} = Repo.delete slide
+    conn
+    |> put_flash(:info, "slide deleted")
+    |> redirect(to: Routes.presentation_path(conn, :show, presentation))
+  end
+
   def new(conn, _params) do
     changeset = Presentation.changeset(%Presentation{})
     render conn, "new.html", changeset: changeset

@@ -7,6 +7,7 @@ defmodule Auriga.Presentations do
   alias Auriga.Repo
 
   alias Auriga.Presentations.Presentation
+  alias Auriga.Presentations.Slide
 
   def list_presentations do
     Repo.all(Presentation)
@@ -17,6 +18,11 @@ defmodule Auriga.Presentations do
     |> Repo.preload(:user)
   end
 
+  def get_slide!(id) do
+    Repo.get!(Slide, id)
+    |> Repo.preload(:presentation)
+  end
+  
   def get_presentation_slides(presentation) do
     Repo.all(from s in Ecto.assoc(presentation, :slides),
       order_by: :index)
