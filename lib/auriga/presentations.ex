@@ -28,6 +28,10 @@ defmodule Auriga.Presentations do
       order_by: :index)
   end
 
+  def presentation_slides_count(presentation) do
+    presentation |> Ecto.assoc(:slides) |> Repo.aggregate(:count, :id)
+  end
+
   def create_presentation(attrs \\ %{}) do
     %Presentation{}
     |> Presentation.changeset(attrs)

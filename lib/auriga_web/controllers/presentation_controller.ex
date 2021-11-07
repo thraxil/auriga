@@ -20,8 +20,10 @@ defmodule AurigaWeb.PresentationController do
     presentation = Auriga.Presentations.get_presentation!(id)
     slides = Auriga.Presentations.get_presentation_slides(presentation)
     slide_changeset = Slide.changeset(%Slide{})
+    slides_count = Auriga.Presentations.presentation_slides_count(presentation)
     render conn, "show.html", presentation: presentation, slides: slides,
-      slide_changeset: slide_changeset
+      slide_changeset: slide_changeset, slides_count: slides_count,
+      next_slide_index: slides_count + 1
   end
 
   def add_slide(conn, %{"id" => id, "slide" => slide_params}) do
