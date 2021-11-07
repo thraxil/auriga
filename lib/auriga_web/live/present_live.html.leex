@@ -29,6 +29,7 @@
 <section>
 <%= raw @slide.notes_html %>
 </section>
+<p><%= link "edit presentation", to: Routes.presentation_path(@socket, :show, @presentation.id) %></p>
 <% else %>
 [<%= @offset %>/<%= @count %>]
 <% end %>
