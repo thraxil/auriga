@@ -22,8 +22,12 @@ defmodule AurigaWeb.PresentLive do
   def mount(%{"id" => presentation_id}, session, socket) do
     topic = "presentation:" <> presentation_id
     current_user = find_current_user(session)
-    presentation = Repo.get_by(Presentation, id: presentation_id) |> Repo.preload(:user)
+
+    presentation = Repo.get_by(Presentation, id: presentation_id)
+    |> Repo.preload(:user)
+    
     slides_count = Presentations.presentation_slides_count(presentation)
+    
     query = first(Ecto.assoc(presentation, :slides), :index)
     slide = Repo.one(query)
 

@@ -1,4 +1,6 @@
+
 <h1>Presentation: <%= @presentation.title %></h1>
+<p>[<%= link "present", to: Routes.present_path(@conn, :index, @presentation.id) %>]</p>
 
 <table>
     <tr>

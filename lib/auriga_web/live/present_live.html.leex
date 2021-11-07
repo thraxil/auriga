@@ -3,11 +3,12 @@
 <p>Presenter: <%= @presentation.user.email %></p>
 
 <%= if @presentation.user.email == @current_user.email do %>
-<button phx-click="back" title="&lt;">&lt;</button>
+<button phx-click="back" title="&lt;"
+<%= if @offset == 1 do %>disabled<% end %> >&lt;</button>
 
 [<%= @offset %>/<%= @count %>]
 
-<button phx-click="forward" title="&gt;">&gt;</button>
+<button phx-click="forward" title="&gt;" <%= if @offset == @count do %>disabled<% end %> >&gt;</button>
 
 <hr />
 <% end %>
