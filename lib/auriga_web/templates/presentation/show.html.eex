@@ -53,7 +53,7 @@
 
 <%= form_for @slide_changeset, Routes.presentation_path(@conn, :add_slide, @presentation.id), fn f -> %>
     <div class="form-group">
-        <%= text_input f, :index, placeholder: @next_slide_index, class: "form-control" %>
+        <%= text_input f, :index, value: @next_slide_index, class: "form-control" %>
         <%= error_tag f, :index %>
     </div>
 
