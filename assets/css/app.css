@@ -121,6 +121,10 @@
     background-color: #ccc;
     border: 1px solid #fff;
 }
+#user-list p.presenter {
+    background-color: #f60;
+    color: #fff;
+}
 
 div.system-message {
     background-color: #eee;

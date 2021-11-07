@@ -1,6 +1,11 @@
 <h1><%= @presentation.title %></h1>
 
-<p>Presenter: <%= @presentation.user.email %></p>
+<div id="user-list">
+  <h3>viewers</h3>
+  <%= for user <- @user_list do %>
+      <p <%= if user == @presentation.user.email do %>class="presenter"<% end %>><%= user %></p>
+      <% end %>
+</div>
 
 <%= if @presentation.user.email == @current_user.email do %>
 <button phx-click="back" title="&lt;"
