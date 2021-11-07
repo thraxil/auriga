@@ -1,0 +1,28 @@
+<h1><%= @presentation.title %></h1>
+
+<p>Presenter: <%= @presentation.user.email %></p>
+
+<%= if @presentation.user.email == @current_user.email do %>
+<button phx-click="back" title="&lt;">&lt;</button>
+
+[<%= @offset %>/<%= @count %>]
+
+<button phx-click="forward" title="&gt;">&gt;</button>
+
+<hr />
+<% end %>
+
+<h2><%= @slide.title %></h2>
+<section>
+<%= raw @slide.content_html %>
+</section>
+
+<%= if @presentation.user.email == @current_user.email do %>
+<hr />
+
+<section>
+<%= raw @slide.notes_html %>
+</section>
+<% else %>
+[<%= @offset %>/<%= @count %>]
+<% end %>
