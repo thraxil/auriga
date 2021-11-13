@@ -38,8 +38,7 @@ defmodule Auriga.Presentations do
   end
 
   def delete_slide(presentation, slide_id) do
-    # TODO: check that slide is attached to presentation
-    slide = get_slide!(slide_id)
+    slide = Repo.get_by!(Slide, [id: slide_id, presentation_id: presentation.id])
     # TODO: update indexes
     Repo.delete slide
   end
