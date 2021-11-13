@@ -1,9 +1,6 @@
-import Ecto.Query, only: [from: 2]
-
 defmodule AurigaWeb.PresentationController do
   alias Auriga.Accounts
   alias AurigaWeb.UserAuth
-  alias Auriga.Repo
   alias Auriga.Presentations
   alias Auriga.Presentations.Presentation
   alias Auriga.Presentations.Slide
@@ -52,11 +49,7 @@ defmodule AurigaWeb.PresentationController do
   end
 
   def create(conn, %{"presentation" => presentation_params}) do
-    changeset =
-      conn.assigns.current_user
-      |> Ecto.build_assoc(:presentations)
-      |> Presentation.changeset(presentation_params)
-    case Repo.insert(changeset) do
+    case Presentations.create_user_presentation(conn.assigns.current_user, presentation_params) do
       {:ok, presentation} ->
         conn
         |> put_flash(:info, "presentation created")
@@ -67,8 +60,8 @@ defmodule AurigaWeb.PresentationController do
   end
 
   def delete(conn, %{"id" => id}) do
-    presentation = Repo.get(Presentation, id)
-    {:ok, _} = Repo.delete presentation
+    presentation = Presentations.get_presentation!(id)
+    {:ok, _} = Presentations.delete_presentation presentation
     conn
     |> put_flash(:info, "presentation deleted")
     |> redirect(to: Routes.presentation_path(conn, :index))

@@ -59,6 +59,14 @@ defmodule Auriga.Presentations do
     |> Repo.insert()
   end
 
+  def create_user_presentation(user, presentation_params) do
+    changeset =
+      user
+      |> Ecto.build_assoc(:presentations)
+      |> Presentation.changeset(presentation_params)
+      |> Repo.insert()
+  end
+
   def update_presentation(%Presentation{} = presentation, attrs) do
     presentation
     |> Presentation.changeset(attrs)
