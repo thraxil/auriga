@@ -27,11 +27,7 @@ defmodule AurigaWeb.PresentationController do
 
   def add_slide(conn, %{"id" => id, "slide" => slide_params}) do
     presentation = Presentations.get_presentation!(id)
-    changeset =
-      presentation
-      |> Ecto.build_assoc(:slides)
-      |> Slide.changeset(slide_params)
-    case Repo.insert(changeset) do
+    case Presentations.add_slide(presentation, slide_params) do
       {:ok, slide} ->
         conn
         |> put_flash(:info, "slide added")

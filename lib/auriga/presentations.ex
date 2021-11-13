@@ -28,6 +28,14 @@ defmodule Auriga.Presentations do
     Repo.get!(Slide, id)
     |> Repo.preload(:presentation)
   end
+
+  def add_slide(presentation, slide_params) do
+    changeset =
+      presentation
+      |> Ecto.build_assoc(:slides)
+      |> Slide.changeset(slide_params)
+    Repo.insert(changeset)
+  end
   
   def get_presentation_slides(presentation) do
     Repo.all(from s in Ecto.assoc(presentation, :slides),
