@@ -13,6 +13,12 @@ defmodule Auriga.Presentations do
     Repo.all(Presentation)
   end
 
+  def list_user_presentations(user) do
+    query = from p in Ecto.assoc(user, :presentations),
+      order_by: [desc: :inserted_at]
+    Repo.all(query)
+  end
+
   def get_presentation!(id) do
     Repo.get!(Presentation, id)
     |> Repo.preload(:user)

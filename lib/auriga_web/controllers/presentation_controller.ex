@@ -4,30 +4,29 @@ defmodule AurigaWeb.PresentationController do
   alias Auriga.Accounts
   alias AurigaWeb.UserAuth
   alias Auriga.Repo
+  alias Auriga.Presentations
   alias Auriga.Presentations.Presentation
   alias Auriga.Presentations.Slide
   use AurigaWeb, :controller
   require Logger
 
   def index(conn, _params) do
-    query = from p in Ecto.assoc(conn.assigns.current_user, :presentations),
-      order_by: [desc: :inserted_at]
-    presentations = Repo.all(query)
+    presentations = Presentations.list_user_presentations(conn.assigns.current_user)
     render conn, "index.html", presentations: presentations
   end
 
   def show(conn, %{"id" => id}) do
-    presentation = Auriga.Presentations.get_presentation!(id)
-    slides = Auriga.Presentations.get_presentation_slides(presentation)
+    presentation = Presentations.get_presentation!(id)
+    slides = Presentations.get_presentation_slides(presentation)
     slide_changeset = Slide.changeset(%Slide{})
-    slides_count = Auriga.Presentations.presentation_slides_count(presentation)
+    slides_count = Presentations.presentation_slides_count(presentation)
     render conn, "show.html", presentation: presentation, slides: slides,
       slide_changeset: slide_changeset, slides_count: slides_count,
       next_slide_index: slides_count + 1
   end
 
   def add_slide(conn, %{"id" => id, "slide" => slide_params}) do
-    presentation = Auriga.Presentations.get_presentation!(id)
+    presentation = Presentations.get_presentation!(id)
     changeset =
       presentation
       |> Ecto.build_assoc(:slides)
@@ -38,15 +37,15 @@ defmodule AurigaWeb.PresentationController do
         |> put_flash(:info, "slide added")
         |> redirect(to: Routes.presentation_path(conn, :show, presentation))
       {:error, changeset} ->
-        slides = Auriga.Presentations.get_presentation_slides(presentation)    
+        slides = Presentations.get_presentation_slides(presentation)    
         render conn, "show.html", presentation: presentation, slides: slides, slide_changeset: changeset
     end
   end
 
   def delete_slide(conn, %{"id" => presentation_id, "slide_id" => slide_id}) do
-    presentation = Auriga.Presentations.get_presentation!(presentation_id)
+    presentation = Presentations.get_presentation!(presentation_id)
     # TODO: check that slide is attached to presentation
-    slide = Auriga.Presentations.get_slide!(slide_id)
+    slide = Presentations.get_slide!(slide_id)
     # TODO: update indexes
     {:ok, _} = Repo.delete slide
     conn
