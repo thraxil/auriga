@@ -36,6 +36,13 @@ defmodule Auriga.Presentations do
       |> Slide.changeset(slide_params)
     Repo.insert(changeset)
   end
+
+  def delete_slide(presentation, slide_id) do
+    # TODO: check that slide is attached to presentation
+    slide = get_slide!(slide_id)
+    # TODO: update indexes
+    Repo.delete slide
+  end
   
   def get_presentation_slides(presentation) do
     Repo.all(from s in Ecto.assoc(presentation, :slides),
