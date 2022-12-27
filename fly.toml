@@ -2,13 +2,14 @@
 
 app = "auriga"
 
-kill_signal = "SIGINT"
+kill_signal = "SIGTERM"
 kill_timeout = 5
+processes = []
 
 [env]
 
 [deploy]
-  release_command = "/app/bin/auriga eval Auriga.Release.migrate"
+  release_command = "/app/bin/migrate"
 
 [experimental]
   allowed_public_ports = []
