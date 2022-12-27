@@ -30,7 +30,9 @@ defmodule Auriga.PresentationsTest do
     # end
 
     test "create_presentation/1 with valid data creates a presentation" do
-      assert {:ok, %Presentation{} = presentation} = Presentations.create_presentation(@valid_attrs)
+      assert {:ok, %Presentation{} = presentation} =
+               Presentations.create_presentation(@valid_attrs)
+
       assert presentation.title == "some title"
     end
 

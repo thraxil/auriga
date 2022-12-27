@@ -5,6 +5,7 @@ defmodule Auriga.Application do
 
   use Application
 
+  @impl true
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
@@ -28,6 +29,7 @@ defmodule Auriga.Application do
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
+  @impl true
   def config_change(changed, _new, removed) do
     AurigaWeb.Endpoint.config_change(changed, removed)
     :ok

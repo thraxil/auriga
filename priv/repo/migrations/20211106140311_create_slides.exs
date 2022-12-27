@@ -12,6 +12,7 @@ defmodule Auriga.Repo.Migrations.CreateSlides do
       add :notes_html, :string
       timestamps()
     end
+
     create index(:slides, [:presentation_id])
   end
 end

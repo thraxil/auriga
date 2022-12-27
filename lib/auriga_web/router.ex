@@ -19,7 +19,6 @@ defmodule AurigaWeb.Router do
 
   scope "/", AurigaWeb do
     pipe_through :browser
-
   end
 
   # Other scopes may use custom stacks.

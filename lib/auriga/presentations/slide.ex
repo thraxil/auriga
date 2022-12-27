@@ -32,7 +32,6 @@ defmodule Auriga.Presentations.Slide do
 
   defp gen_notes(changeset), do: changeset
 
-
   defp gen_content(%{valid?: true, changes: %{content_md: content}} = changeset) do
     put_change(changeset, :content_html, AlchemistMarkdown.to_html(content))
   end

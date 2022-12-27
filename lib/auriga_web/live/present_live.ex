@@ -11,7 +11,7 @@ defmodule AurigaWeb.PresentLive do
   alias Auriga.Presentations.Presentation
   alias Auriga.Presentations.Slide
   alias Auriga.Repo
-  
+
   defp find_current_user(session) do
     with user_token when not is_nil(user_token) <- session["user_token"],
          %User{} = user <- Accounts.get_user_by_session_token(user_token),
@@ -23,19 +23,22 @@ defmodule AurigaWeb.PresentLive do
     topic = "presentation:" <> presentation_id
     current_user = find_current_user(session)
 
-    presentation = Repo.get_by(Presentation, id: presentation_id)
-    |> Repo.preload(:user)
-    
+    presentation =
+      Repo.get_by(Presentation, id: presentation_id)
+      |> Repo.preload(:user)
+
     slides_count = Presentations.presentation_slides_count(presentation)
-    
+
     query = first(Ecto.assoc(presentation, :slides), :index)
     slide = Repo.one(query)
 
     Logger.info(slide)
+
     if connected?(socket) do
       AurigaWeb.Endpoint.subscribe(topic)
       AurigaWeb.Presence.track(self(), topic, current_user.email, %{})
     end
+
     {:ok,
      assign(socket,
        presentation_id: presentation_id,
@@ -45,34 +48,50 @@ defmodule AurigaWeb.PresentLive do
        user_list: [],
        offset: 1,
        slide: slide,
-       count: slides_count)}
+       count: slides_count
+     )}
   end
 
   @impl true
   def handle_event("forward", _params, socket) do
     offset = min(socket.assigns.offset + 1, socket.assigns.count)
     presentation = socket.assigns.presentation
-    query = from s in Ecto.assoc(presentation, :slides),
-      order_by: :index,
-      offset: ^(offset - 1),
-      limit: 1
+
+    query =
+      from s in Ecto.assoc(presentation, :slides),
+        order_by: :index,
+        offset: ^(offset - 1),
+        limit: 1
+
     slide = Repo.one(query)
-    AurigaWeb.Endpoint.broadcast(socket.assigns.topic, "set-slide", %{offset: offset, slide: slide})
+
+    AurigaWeb.Endpoint.broadcast(socket.assigns.topic, "set-slide", %{
+      offset: offset,
+      slide: slide
+    })
+
     {:noreply, socket}
   end
 
   def handle_event("back", _params, socket) do
     offset = max(socket.assigns.offset - 1, 1)
     presentation = socket.assigns.presentation
-    query = from s in Ecto.assoc(presentation, :slides),
-      order_by: :index,
-      offset: ^(offset - 1),
-      limit: 1
+
+    query =
+      from s in Ecto.assoc(presentation, :slides),
+        order_by: :index,
+        offset: ^(offset - 1),
+        limit: 1
+
     slide = Repo.one(query)
-    AurigaWeb.Endpoint.broadcast(socket.assigns.topic, "set-slide", %{offset: offset, slide: slide})    
+
+    AurigaWeb.Endpoint.broadcast(socket.assigns.topic, "set-slide", %{
+      offset: offset,
+      slide: slide
+    })
+
     {:noreply, assign(socket, offset: offset, slide: slide)}
   end
-
 
   @impl true
   def handle_info(%{event: "presence_diff", payload: %{joins: _joins, leaves: _leaves}}, socket) do

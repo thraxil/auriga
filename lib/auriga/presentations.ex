@@ -15,8 +15,10 @@ defmodule Auriga.Presentations do
   end
 
   def list_user_presentations(user) do
-    query = from p in Ecto.assoc(user, :presentations),
-      order_by: [desc: :inserted_at]
+    query =
+      from p in Ecto.assoc(user, :presentations),
+        order_by: [desc: :inserted_at]
+
     Repo.all(query)
   end
 
@@ -35,30 +37,35 @@ defmodule Auriga.Presentations do
       presentation
       |> Ecto.build_assoc(:slides)
       |> Slide.changeset(slide_params)
+
     Repo.insert(changeset)
   end
 
   def set_slide_index!(slide, idx) do
     Repo.update!(change(slide, index: idx))
   end
-  
+
   def normalize_slide_indexes(presentation) do
     Repo.transaction(fn ->
       get_presentation_slides(presentation)
-      |> Enum.with_index
+      |> Enum.with_index()
       |> Enum.map(fn {slide, idx} -> set_slide_index!(slide, idx + 1) end)
     end)
   end
 
   def delete_slide(presentation, slide_id) do
-    {:ok, _} = Repo.get_by!(Slide, [id: slide_id, presentation_id: presentation.id])
-    |> Repo.delete()
+    {:ok, _} =
+      Repo.get_by!(Slide, id: slide_id, presentation_id: presentation.id)
+      |> Repo.delete()
+
     normalize_slide_indexes(presentation)
   end
-  
+
   def get_presentation_slides(presentation) do
-    Repo.all(from s in Ecto.assoc(presentation, :slides),
-      order_by: :index)
+    Repo.all(
+      from s in Ecto.assoc(presentation, :slides),
+        order_by: :index
+    )
   end
 
   def presentation_slides_count(presentation) do
