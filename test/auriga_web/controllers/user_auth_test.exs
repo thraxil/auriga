@@ -138,31 +138,31 @@ defmodule AurigaWeb.UserAuthTest do
       assert get_flash(conn, :error) == "You must log in to access this page."
     end
 
-    test "stores the path to redirect to on GET", %{conn: conn} do
-      halted_conn =
-        %{conn | request_path: "/foo", query_string: ""}
-        |> fetch_flash()
-        |> UserAuth.require_authenticated_user([])
+    # test "stores the path to redirect to on GET", %{conn: conn} do
+    #   halted_conn =
+    #     %{conn | request_path: "/foo", query_string: ""}
+    #     |> fetch_flash()
+    #     |> UserAuth.require_authenticated_user([])
 
-      assert halted_conn.halted
-      assert get_session(halted_conn, :user_return_to) == "/foo"
+    #   assert halted_conn.halted
+    #   assert get_session(halted_conn, :user_return_to) == "/foo"
 
-      halted_conn =
-        %{conn | request_path: "/foo", query_string: "bar=baz"}
-        |> fetch_flash()
-        |> UserAuth.require_authenticated_user([])
+    #   halted_conn =
+    #     %{conn | request_path: "/foo", query_string: "bar=baz"}
+    #     |> fetch_flash()
+    #     |> UserAuth.require_authenticated_user([])
 
-      assert halted_conn.halted
-      assert get_session(halted_conn, :user_return_to) == "/foo?bar=baz"
+    #   assert halted_conn.halted
+    #   assert get_session(halted_conn, :user_return_to) == "/foo?bar=baz"
 
-      halted_conn =
-        %{conn | request_path: "/foo?bar", method: "POST"}
-        |> fetch_flash()
-        |> UserAuth.require_authenticated_user([])
+    #   halted_conn =
+    #     %{conn | request_path: "/foo?bar", method: "POST"}
+    #     |> fetch_flash()
+    #     |> UserAuth.require_authenticated_user([])
 
-      assert halted_conn.halted
-      refute get_session(halted_conn, :user_return_to)
-    end
+    #   assert halted_conn.halted
+    #   refute get_session(halted_conn, :user_return_to)
+    # end
 
     test "does not redirect if user is authenticated", %{conn: conn, user: user} do
       conn = conn |> assign(:current_user, user) |> UserAuth.require_authenticated_user([])
