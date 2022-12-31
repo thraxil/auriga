@@ -6,6 +6,7 @@ defmodule AurigaWeb.PageLive do
   alias Auriga.Accounts
   alias Auriga.Accounts.User
   alias Auriga.Repo
+  alias Auriga.Presentations
   require Logger
 
   defp find_current_user(session) do
@@ -34,11 +35,14 @@ defmodule AurigaWeb.PageLive do
       |> Enum.map(fn msg -> msg.room_id end)
       |> Enum.map(fn id -> Repo.get(Room, id) end)
 
+    presentations = Presentations.list_user_presentations(current_user)
+
     {:ok,
      assign(socket,
        current_user: current_user,
        owned_rooms: owned_rooms,
-       active_rooms: active_rooms
+       active_rooms: active_rooms,
+       presentations: presentations
      )}
   end
 

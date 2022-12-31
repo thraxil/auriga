@@ -1,5 +1,21 @@
 
 <section>
+<h2>Your Presentations</h2>
+<%= link "New Presentation", to: Routes.presentation_path(@socket, :new) %>
+
+<ul>
+    <%= for presentation <- @presentations do %>
+        <li>
+            <%= presentation.inserted_at %>
+            <%= link presentation.title, to: Routes.presentation_path(@socket, :show, presentation.id) %>
+        </li>
+    <% end %>
+</ul>
+</section>
+
+
+<hr />
+<section>
 <button phx-click="random-room" title="create random room">create random room</button>
 </section>
 
