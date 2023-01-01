@@ -54,7 +54,10 @@ defmodule Auriga.MixProject do
       {:html_sanitize_ex, "~> 1.3"},
       {:mnemonic_slugs, "~> 0.0.3"},
       {:uuid, "~> 1.1.8"},
-      {:timex, "~> 3.7.6"}
+      {:timex, "~> 3.7.6"},
+      {:httpoison, "~> 1.8"},
+      {:sentry, "~> 8.0"},
+      {:hackney, "~> 1.8"}
     ]
   end
 
