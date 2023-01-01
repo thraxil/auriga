@@ -1,6 +1,4 @@
 defmodule AurigaWeb.PresentationController do
-  alias Auriga.Accounts
-  alias AurigaWeb.UserAuth
   alias Auriga.Presentations
   alias Auriga.Presentations.Presentation
   alias Auriga.Presentations.Slide
@@ -31,7 +29,7 @@ defmodule AurigaWeb.PresentationController do
     presentation = Presentations.get_presentation!(id)
 
     case Presentations.add_slide(presentation, slide_params) do
-      {:ok, slide} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "slide added")
         |> redirect(to: Routes.presentation_path(conn, :show, presentation))
@@ -105,6 +103,7 @@ defmodule AurigaWeb.PresentationController do
   end
 
   def edit_slide(conn, %{"id" => presentation_id, "slide_id" => slide_id, "slide" => slide_params}) do
+    _presentation = Presentations.get_presentation!(presentation_id)
     slide = Presentations.get_slide!(slide_id)
     case Presentations.update_slide(slide, slide_params) do
       {:ok, slide} ->
