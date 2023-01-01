@@ -18,7 +18,7 @@
 </table>
 
 
-<%= form_for @conn, Routes.presentation_path(@conn, :delete, @presentation), fn f -> %>
+<%= form_for @conn, Routes.presentation_path(@conn, :delete, @presentation), fn _f -> %>
     <%= submit "Delete Presentation", class: "btn btn-danger" %>
 <% end %>
 
@@ -30,19 +30,19 @@
         <%= for slide <- @slides do %>
             <tr>
                 <th><%= slide.index %></th>
-                <th><%= slide.title %></th>
-                <th><%= form_for @conn, Routes.presentation_path(@conn, :delete_slide, @presentation, slide.id), fn f -> %>
+                <th><%= link slide.title, to: Routes.presentation_path(@conn, :show_slide, @presentation.id, slide.id) %></th>
+                <th><%= form_for @conn, Routes.presentation_path(@conn, :delete_slide, @presentation, slide.id), fn _f -> %>
                     <%= submit "delete", class: "btn btn-danger" %>
                 <% end %>
-            </th>
+                </th>
             </tr>
             <tr>
                 <td colspan="3">
                     <%= raw slide.content_html %>
                 </td>
             </tr>
-<% end %>
-</table>
+        <% end %>
+    </table>
 <% end %>
 
 <h2>Add Slide</h2>

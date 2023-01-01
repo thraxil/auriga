@@ -99,4 +99,11 @@ defmodule Auriga.Presentations do
   def change_presentation(%Presentation{} = presentation, attrs \\ %{}) do
     Presentation.changeset(presentation, attrs)
   end
+
+  def update_slide(%Slide{} = slide, attrs) do
+    slide
+    |> Slide.changeset(attrs)
+    |> Repo.update()
+  end
+
 end

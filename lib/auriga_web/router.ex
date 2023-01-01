@@ -75,6 +75,8 @@ defmodule AurigaWeb.Router do
     post "/presentations/:id/delete_slide/:slide_id", PresentationController, :delete_slide
     post "/presentations/:id/delete/", PresentationController, :delete
     post "/presentations/", PresentationController, :create
+    get "/presentations/:id/slide/:slide_id/", PresentationController, :show_slide
+    put "/presentations/:id/slide/:slide_id/", PresentationController, :edit_slide
 
     # live present
     live "/present/:id", PresentLive, :index

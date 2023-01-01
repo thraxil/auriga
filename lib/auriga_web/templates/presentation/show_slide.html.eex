@@ -1,0 +1,26 @@
+
+<h1>Presentation: <%= link @presentation.title, to: Routes.presentation_path(@conn, :show, @presentation ) %></h1>
+
+<%= form_for @slide_changeset, Routes.presentation_path(@conn, :edit_slide, @presentation.id, @slide.id), fn f -> %>
+    <div class="form-group">
+        <%= text_input f, :index, class: "form-control" %>
+        <%= error_tag f, :index %>
+    </div>
+
+    <div class="form-group">
+        <%= text_input f, :title, placeholder: "title", class: "form-control" %>
+        <%= error_tag f, :title %>
+    </div>
+
+    <div class="form-group">
+        <%= textarea f, :content_md, placeholder: "content", class: "form-control" %>
+        <%= error_tag f, :content_md %>
+    </div>
+
+    <div class="form-group">
+        <%= textarea f, :notes_md, placeholder: "notes", class: "form-control" %>
+        <%= error_tag f, :notes_md %>
+    </div>
+
+    <%= submit "Update Slide", class: "btn btn-primary" %>
+<% end %>
