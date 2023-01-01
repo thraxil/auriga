@@ -1,20 +1,12 @@
 # Auriga
 
-To start your Phoenix server:
+Playing around with some ideas around remote presentations. The idea
+is that you can author a presentation here, share the URL with
+someone, then advance slides from your browser and it will advance in
+theirs as well (through the magic of websockets/liveview). This is
+much faster and more efficient than, eg, sharing your screen in Zoom
+while you go through a slide deck.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
-
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+(there's also a separate chat room feature that was initially just me
+figuring out how liveview/channels works but I might turn into a
+backchannel feature on presentations).
