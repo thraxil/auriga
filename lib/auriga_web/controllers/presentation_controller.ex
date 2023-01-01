@@ -38,11 +38,14 @@ defmodule AurigaWeb.PresentationController do
 
       {:error, changeset} ->
         slides = Presentations.get_presentation_slides(presentation)
+        slides_count = Presentations.presentation_slides_count(presentation)
 
         render(conn, "show.html",
           presentation: presentation,
           slides: slides,
-          slide_changeset: changeset
+          slide_changeset: changeset,
+          slides_count: slides_count,
+          next_slide_index: slides_count + 1
         )
     end
   end
