@@ -1,2 +1,5 @@
 assets/node_modules/
 deps/
+nix
+shell.nix
+.envrc
