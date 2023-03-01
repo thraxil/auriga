@@ -55,7 +55,7 @@ defmodule Auriga.MixProject do
       {:mnemonic_slugs, "~> 0.0.3"},
       {:uuid, "~> 1.1.8"},
       {:timex, "~> 3.7.6"},
-      {:httpoison, "~> 1.8"},
+      {:httpoison, "~> 2.0"},
       {:sentry, "~> 8.0"},
       {:hackney, "~> 1.8"}
     ]
