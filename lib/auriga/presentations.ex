@@ -79,7 +79,6 @@ defmodule Auriga.Presentations do
   end
 
   def create_user_presentation(user, presentation_params) do
-    changeset =
       user
       |> Ecto.build_assoc(:presentations)
       |> Presentation.changeset(presentation_params)
