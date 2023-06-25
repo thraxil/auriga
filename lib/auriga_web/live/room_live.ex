@@ -145,15 +145,15 @@ defmodule AurigaWeb.RoomLive do
      )}
   end
 
-  def display_message(%{type: :system, content: content, inserted_at: inserted_at} = assigns) do
+  def display_message(%{type: :system} = assigns) do
     ~H"""
-    <div class="message system-message"><i><%= Timex.format!(inserted_at, "{YYYY}-{0M}-{0D} {h24}:{m}") %></i> <%= raw content %></div>
+    <div class="message system-message"><i><%= Timex.format!(@inserted_at, "{YYYY}-{0M}-{0D} {h24}:{m}") %></i> <%= raw @content %></div>
     """
   end
 
-  def display_message(%{email: email, content: content, inserted_at: inserted_at} = assigns) do
+  def display_message(assigns) do
     ~H"""
-    <div class="message user-message"><i><%= Timex.format!(inserted_at, "{h24}:{m}") %></i> <b><%= email %>:</b> <%= raw content %></div>
+    <div class="message user-message"><i><%= Timex.format!(@inserted_at, "{h24}:{m}") %></i> <b><%= @email %>:</b> <%= raw @content %></div>
     """
   end
 end

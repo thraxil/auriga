@@ -9,7 +9,6 @@ defmodule AurigaWeb.PresentLive do
   alias Auriga.Accounts.User
   alias Auriga.Presentations
   alias Auriga.Presentations.Presentation
-  alias Auriga.Presentations.Slide
   alias Auriga.Repo
 
   defp find_current_user(session) do
