@@ -79,10 +79,10 @@ defmodule Auriga.Presentations do
   end
 
   def create_user_presentation(user, presentation_params) do
-      user
-      |> Ecto.build_assoc(:presentations)
-      |> Presentation.changeset(presentation_params)
-      |> Repo.insert()
+    user
+    |> Ecto.build_assoc(:presentations)
+    |> Presentation.changeset(presentation_params)
+    |> Repo.insert()
   end
 
   def update_presentation(%Presentation{} = presentation, attrs) do
@@ -104,5 +104,4 @@ defmodule Auriga.Presentations do
     |> Slide.changeset(attrs)
     |> Repo.update()
   end
-
 end

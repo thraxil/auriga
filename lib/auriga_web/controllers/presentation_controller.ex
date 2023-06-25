@@ -105,15 +105,15 @@ defmodule AurigaWeb.PresentationController do
   def edit_slide(conn, %{"id" => presentation_id, "slide_id" => slide_id, "slide" => slide_params}) do
     _presentation = Presentations.get_presentation!(presentation_id)
     slide = Presentations.get_slide!(slide_id)
+
     case Presentations.update_slide(slide, slide_params) do
       {:ok, slide} ->
         conn
         |> put_flash(:info, "slide updated")
-        |> redirect(to: Routes.presentation_path(conn, :show, slide.presentation ))
+        |> redirect(to: Routes.presentation_path(conn, :show, slide.presentation))
 
       {:error, changeset} ->
         render(conn, "show_slide.html", changeset: changeset)
     end
   end
-
 end
