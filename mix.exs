@@ -57,7 +57,7 @@ defmodule Auriga.MixProject do
       {:uuid, "~> 1.1.8"},
       {:timex, "~> 3.7.6"},
       {:httpoison, "~> 2.0"},
-      {:sentry, "~> 8.0"},
+      {:sentry, "~> 9.1"},
       {:hackney, "~> 1.8"}
     ]
   end
