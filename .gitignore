@@ -35,3 +35,4 @@ npm-debug.log
 
 .nix-hex
 .nix-mix
+.direnv
