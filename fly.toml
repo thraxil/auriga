@@ -5,6 +5,7 @@ app = "auriga"
 kill_signal = "SIGTERM"
 kill_timeout = 5
 processes = []
+swap_size_mb = 512
 
 [env]
 
