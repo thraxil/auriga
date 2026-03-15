@@ -6,6 +6,7 @@ defmodule Auriga.Release do
   @app :auriga
 
   def migrate do
+    System.put_env("RUN_MIGRATIONS", "true")
     load_app()
 
     for repo <- repos() do

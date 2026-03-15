@@ -29,9 +29,17 @@ if config_env() == :prod do
       For example: ecto://USER:PASS@HOST/DATABASE
       """
 
+  maybe_direct_database_url =
+    if System.get_env("RUN_MIGRATIONS") do
+      System.get_env("DIRECT_DATABASE_URL") || database_url
+    else
+      database_url
+    end
+
   config :auriga, Auriga.Repo,
-    url: database_url,
+    url: maybe_direct_database_url,
     # IMPORTANT: Or it won't find the DB server
     socket_options: [:inet6],
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+    prepare: :unnamed
 end
