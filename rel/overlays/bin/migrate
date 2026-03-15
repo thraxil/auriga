@@ -1,3 +1,4 @@
 #!/bin/sh
 cd -P -- "$(dirname -- "$0")"
+export RUN_MIGRATIONS=true
 exec ./auriga eval Auriga.Release.migrate
