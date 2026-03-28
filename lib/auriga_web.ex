@@ -22,7 +22,7 @@ defmodule AurigaWeb do
       use Phoenix.Controller, namespace: AurigaWeb
 
       import Plug.Conn
-      import AurigaWeb.Gettext
+      use Gettext, backend: AurigaWeb.Gettext
       alias AurigaWeb.Router.Helpers, as: Routes
     end
   end
@@ -79,7 +79,7 @@ defmodule AurigaWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import AurigaWeb.Gettext
+      use Gettext, backend: AurigaWeb.Gettext
     end
   end
 
@@ -96,7 +96,7 @@ defmodule AurigaWeb do
       import Phoenix.View
 
       import AurigaWeb.ErrorHelpers
-      import AurigaWeb.Gettext
+      use Gettext, backend: AurigaWeb.Gettext
       alias AurigaWeb.Router.Helpers, as: Routes
     end
   end

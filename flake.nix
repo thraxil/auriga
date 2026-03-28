@@ -16,7 +16,7 @@
             devShells.default = pkgs.mkShell {
               name = "erlang-elixir-dev";
               packages = with pkgs; [
-                elixir_1_15
+                elixir_1_19
                 flyctl
                 nodejs
                 postgresql_14 # Or your preferred PostgreSQL version
