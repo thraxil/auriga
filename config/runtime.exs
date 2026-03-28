@@ -40,6 +40,6 @@ if config_env() == :prod do
     url: maybe_direct_database_url,
     # IMPORTANT: Or it won't find the DB server
     socket_options: [:inet6],
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "5"),
     prepare: :unnamed
 end
