@@ -19,7 +19,9 @@ defmodule AurigaWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: AurigaWeb
+      use Phoenix.Controller,
+        formats: [html: "View", json: "View"],
+        layouts: [html: AurigaWeb.LayoutView]
 
       import Plug.Conn
       use Gettext, backend: AurigaWeb.Gettext
@@ -86,10 +88,11 @@ defmodule AurigaWeb do
   defp view_helpers do
     quote do
       # Use all HTML functionality (forms, tags, etc)
-      use Phoenix.HTML
+      import Phoenix.HTML
+      import Phoenix.HTML.Form
+      use PhoenixHTMLHelpers
 
       # Import LiveView helpers (live_render, live_component, live_patch, etc)
-      import Phoenix.LiveView.Helpers
       import Phoenix.Component
 
       # Import basic rendering functionality (render, render_layout, etc)

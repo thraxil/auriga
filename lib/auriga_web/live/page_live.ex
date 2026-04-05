@@ -51,6 +51,6 @@ defmodule AurigaWeb.PageLive do
     random_slug = MnemonicSlugs.generate_slug(4)
     Logger.info(random_slug)
     Repo.insert!(%Room{name: random_slug, slug: random_slug, user: socket.assigns.current_user})
-    {:noreply, push_redirect(socket, to: "/chat/" <> random_slug)}
+    {:noreply, push_navigate(socket, to: "/chat/" <> random_slug)}
   end
 end
