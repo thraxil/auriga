@@ -38,7 +38,7 @@ defmodule Auriga.MixProject do
       {:phoenix_ecto, "~> 4.7"},
       {:ecto_sql, "~> 3.13"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_live_view, "~> 1.1.28"},
+      {:phoenix_live_view, "~> 1.2.1"},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_html, "~> 4.3"},
       {:phoenix_html_helpers, "~> 1.0"},
