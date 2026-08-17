@@ -44,7 +44,7 @@ defmodule Auriga.MixProject do
       {:phoenix_html_helpers, "~> 1.0"},
       {:phoenix_view, "~> 2.0"},
       {:phoenix_live_reload, "~> 1.6", only: :dev},
-      {:phoenix_live_dashboard, "~> 0.8.7"},
+      {:phoenix_live_dashboard, "~> 0.9.0"},
       {:esbuild, "~> 0.10", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "~> 1.1"},
       {:telemetry_poller, "~> 1.3"},
