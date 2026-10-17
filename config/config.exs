@@ -35,6 +35,10 @@ config :esbuild,
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
+# Sentry defaults to Sentry.FinchClient, but :finch isn't a dependency
+# here, so use hackney (which we already depend on) in every environment.
+config :sentry, client: Sentry.HackneyClient
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
