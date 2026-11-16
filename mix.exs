@@ -48,7 +48,7 @@ defmodule Auriga.MixProject do
       {:esbuild, "~> 0.10", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "~> 1.1"},
       {:telemetry_poller, "~> 1.3"},
-      {:gettext, "~> 0.26"},
+      {:gettext, "~> 1.0"},
       {:jason, "~> 1.4"},
       {:plug_cowboy, "~> 2.8"},
       #      {:phx_gen_auth, "~> 0.7", only: [:dev], runtime: false},
